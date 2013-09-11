@@ -1,0 +1,29 @@
+.class
+*~
+*.confidential.*
+*.ignore.*
+
+# Eclipse files #
+.classpath
+.project
+.settings
+
+# IntelliJ IDEA files #
+.idea
+*.iml
+*.ipr
+*.iws
+
+# Package Files #
+*.jar
+*.war
+*.ear
+target/
+
+#pig temp files
+*.crc
+*part-r-00000
+_SUCCESS
+
+#secret test data
+*_secret.*
