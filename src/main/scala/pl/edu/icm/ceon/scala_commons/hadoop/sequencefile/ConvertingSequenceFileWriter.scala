@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2013-2013 ICM UW
+ */
+
 package pl.edu.icm.ceon.scala_commons.hadoop.sequencefile
 
 import org.apache.hadoop.io.SequenceFile

@@ -1,9 +1,13 @@
+/*
+ * Copyright (c) 2013-2013 ICM UW
+ */
+
 package pl.edu.icm.ceon.scala_commons
 
 /**
  * @author Mateusz Fedoryszak (m.fedoryszak@icm.edu.pl)
  */
-object xml {
+package object xml {
 
   sealed trait Elem
 

@@ -1,7 +1,12 @@
+/*
+ * Copyright (c) 2013-2013 ICM UW
+ */
+
 package pl.edu.icm.ceon.scala_commons
 
 import annotation.tailrec
 import util.matching.Regex
+import scala.math.max
 
 /**
  * @author Mateusz Fedoryszak (m.fedoryszak@icm.edu.pl)
@@ -36,7 +41,7 @@ object strings {
     @tailrec
     def extractHcs(i: Int, j: Int, acc: List[(Int, Int)] = Nil): List[(Int, Int)] = {
       if (i > 0 && j > 0) {
-        if (hcsArray((i - 1) * sndDim + (j - 1)) >= math.max(hcsArray((i - 1) * sndDim + j), hcsArray(i * sndDim + (j - 1)))) {
+        if (hcsArray((i - 1) * sndDim + (j - 1)) >= max(hcsArray((i - 1) * sndDim + j), hcsArray(i * sndDim + (j - 1)))) {
           if (s1.charAt(i - 1) == s2.charAt(j - 1))
             extractHcs(i - 1, j - 1, (i - 1, j - 1) :: acc)
           else

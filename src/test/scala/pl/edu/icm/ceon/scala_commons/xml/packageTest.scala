@@ -1,4 +1,8 @@
-package pl.edu.icm.ceon.scala_commons
+/*
+ * Copyright (c) 2013-2013 ICM UW
+ */
+
+package pl.edu.icm.ceon.scala_commons.xml
 
 import org.junit.Assert._
 import org.junit.Test
@@ -8,7 +12,7 @@ import xml._
 /**
  * @author Mateusz Fedoryszak (m.fedoryszak@icm.edu.pl)
  */
-class xmlTest {
+class packageTest {
   @Test
   def xmlToElemsTest() {
     assertEquals(xmlToElems("<tag>"), List(StartTag("tag")))
