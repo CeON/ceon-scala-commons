@@ -4,7 +4,10 @@
 
 package pl.edu.icm.ceon.scala_commons
 
-import java.io.File
+import java.io.{PrintWriter, File}
+import resource._
+import scala.Some
+import scala.io.{Codec, Source}
 
 /**
  * @author Mateusz Fedoryszak (m.fedoryszak@icm.edu.pl)
@@ -24,4 +27,28 @@ object files {
       f <- toFiles(d)
     } yield f
   }
+
+  class RichFile(file: File) {
+    def asLines = managed(Source.fromFile(file)(Codec.UTF8))
+      .acquireAndGet(source => source.getLines().toList)
+
+    def asLines_=(ls: TraversableOnce[String]) {
+      asText = ls.mkString("\n")
+    }
+
+    def asText = asLines.mkString
+
+    def asText_=(s: String) {
+      managed(new PrintWriter(file, "UTF-8"))
+        .acquireAndGet(out => out.print(s))
+    }
+  }
+
+
+  object RichFile {
+    implicit def enrichFile(file: File) = new RichFile(file)
+
+    implicit def enrichFile(name: String) = new RichFile(new File(name))
+  }
+
 }
