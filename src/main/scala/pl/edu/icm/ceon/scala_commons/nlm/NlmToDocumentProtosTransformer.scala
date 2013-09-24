@@ -1,10 +1,15 @@
+/*
+ * Copyright (c) 2013-2013 ICM UW
+ */
+
 package pl.edu.icm.ceon.scala_commons.nlm
 
 import pl.edu.icm.model.transformers.{MetadataFormat, MetadataModel, MetadataReader}
 import pl.edu.icm.coansys.models.DocumentProtos.DocumentWrapper
-import java.io.{PipedOutputStream, PipedInputStream, Reader}
+import java.io.Reader
 import org.apache.commons.io.IOUtils
 import org.apache.commons.io.input.ReaderInputStream
+import nlmToDocumentProto._
 
 /**
  * @author Mateusz Fedoryszak (m.fedoryszak@icm.edu.pl)
