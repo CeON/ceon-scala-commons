@@ -6,6 +6,7 @@ package pl.edu.icm.ceon.scala_commons.nlm
 
 import org.junit.Assert._
 import pl.edu.icm.coansys.models.DocumentProtos.DocumentMetadata
+import nlmToDocumentProto.pubmedNlmToProtoBuf
 import org.junit.{Test, BeforeClass}
 
 /**
@@ -25,6 +26,7 @@ object pubmedNlmToProtoBufTest {
  * @author Mateusz Fedoryszak (m.fedoryszak@icm.edu.pl)
  */
 class pubmedNlmToProtoBufTest {
+
   import pubmedNlmToProtoBufTest.doc
 
   @Test

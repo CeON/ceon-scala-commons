@@ -2,7 +2,7 @@
  * Copyright (c) 2013-2013 ICM UW
  */
 
-package pl.edu.icm.ceon.scala_commons
+package pl.edu.icm.ceon.scala_commons.nlm
 
 import java.io.{InputStream, FileInputStream, File}
 import pl.edu.icm.coansys.models.DocumentProtos._
@@ -10,11 +10,11 @@ import org.w3c.dom.Node
 import pl.edu.icm.ceon.scala_commons.xml.XPathEvaluator
 
 /**
- * NLM to DocumentProtos conversion functions.
+ * NLM to DocumentProto conversion functions.
  *
  * @author Mateusz Fedoryszak (m.fedoryszak@icm.edu.pl)
  */
-package object nlm {
+package object nlmToDocumentProto {
   def pubmedNlmToProtoBuf(f: File): DocumentWrapper =
     pubmedNlmToProtoBuf(new FileInputStream(f))
 
