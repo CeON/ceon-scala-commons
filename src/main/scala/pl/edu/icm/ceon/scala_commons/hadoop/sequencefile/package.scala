@@ -10,11 +10,14 @@ import java.net.URI
 import resource._
 import org.apache.hadoop.io.{WritableComparable, Writable, MapFile, SequenceFile}
 import org.apache.hadoop.io.SequenceFile.Sorter
+import com.nicta.scoobi.Scoobi._
+import pl.edu.icm.ceon.scala_commons.hadoop.writables.BytesIterable
+import com.typesafe.scalalogging.slf4j.Logging
 
 /**
  * @author Mateusz Fedoryszak (m.fedoryszak@icm.edu.pl)
  */
-package object sequencefile {
+package object sequencefile extends Logging {
   /**
    * Reads from a SequenceFile its key and value types
    * @return a pair of key and value type
@@ -55,5 +58,28 @@ package object sequencefile {
     val sorter = new Sorter(fs, keyClass.asInstanceOf[Class[_ <: WritableComparable[_]]], valueClass, conf)
     sorter.setMemory(128 * 1000 * 1000)
     sorter.sort(paths, mapData, true)
+  }
+
+  def mergeWithScoobi(uri: String)(implicit conf: ScoobiConfiguration) {
+    val maxReducers = conf.getMaxReducers
+    conf.setMaxReducers(1)
+    val entities = fromSequenceFile[String, BytesIterable](uri)
+    val sorted = entities.groupByKey.mapFlatten{case (id, iter) => for (el <- iter)  yield (id, el)}
+    val tmpUri = uri + "_tmp"
+    persist(sorted.toSequenceFile(tmpUri))
+    conf.setMaxReducers(maxReducers)
+
+    val fs = FileSystem.get(URI.create(uri), conf)
+    fs.delete(new Path(uri), true)
+    val dir = new Path(tmpUri)
+    val paths: Array[Path] = fs.listStatus(dir).map(_.getPath).filterNot(_.getName.startsWith("_"))
+    val mapData = new Path(new Path(uri), MapFile.DATA_FILE_NAME)
+    if (paths.length > 0) {
+      fs.mkdirs(new Path(uri))
+      fs.rename(paths.head, mapData)
+    } else {
+      logger.warn("No output produced")
+    }
+    fs.delete(new Path(tmpUri), true)
   }
 }
