@@ -60,10 +60,15 @@ package object sequencefile extends Logging {
     sorter.sort(paths, mapData, true)
   }
 
-  def mergeWithScoobi(uri: String)(implicit conf: ScoobiConfiguration) {
+  def mergeWithScoobi[K, V](uri: String)(implicit conf: ScoobiConfiguration,
+                                                  keyGrouping: Grouping[K],
+                                                  keyWire: WireFormat[K],
+                                                  valueWire: WireFormat[V],
+                                                  keySchema: SeqSchema[K],
+                                                  valueSchema: SeqSchema[V]) {
     val maxReducers = conf.getMaxReducers
     conf.setMaxReducers(1)
-    val entities = fromSequenceFile[String, BytesIterable](uri)
+    val entities = fromSequenceFile[K, V](uri)
     val sorted = entities.groupByKey.mapFlatten{case (id, iter) => for (el <- iter)  yield (id, el)}
     val tmpUri = uri + "_tmp"
     persist(sorted.toSequenceFile(tmpUri))
