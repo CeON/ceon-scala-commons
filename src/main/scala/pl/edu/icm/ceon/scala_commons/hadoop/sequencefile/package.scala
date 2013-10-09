@@ -11,7 +11,6 @@ import resource._
 import org.apache.hadoop.io.{WritableComparable, Writable, MapFile, SequenceFile}
 import org.apache.hadoop.io.SequenceFile.Sorter
 import com.nicta.scoobi.Scoobi._
-import pl.edu.icm.ceon.scala_commons.hadoop.writables.BytesIterable
 import com.typesafe.scalalogging.slf4j.Logging
 
 /**
@@ -23,9 +22,8 @@ package object sequencefile extends Logging {
    * @return a pair of key and value type
    */
   def extractTypes(uri: String)(implicit conf: Configuration): (Class[_], Class[_]) = {
-    val fs = FileSystem.get(URI.create(uri), conf)
     val path = new Path(uri)
-    managed(new SequenceFile.Reader(fs, path, conf)).acquireAndGet {
+    managed(new SequenceFile.Reader(conf, SequenceFile.Reader.file(path))).acquireAndGet {
       reader =>
         val keyClass = reader.getKeyClass
         val valueClass = reader.getValueClass
