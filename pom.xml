@@ -1,11 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>pl.edu.icm.ceon</groupId>
     <artifactId>ceon-scala-commons</artifactId>
     <name>CeON Scala Commons</name>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <inceptionYear>2013</inceptionYear>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -111,7 +110,7 @@
         <connection>scm:git:ssh://git@github.com/CeON/ceon-scala-commons.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/CeON/ceon-scala-commons.git</developerConnection>
         <url>https://github.com/CeON/ceon-scala-commons</url>
-        <tag>HEAD</tag>
+        <tag>ceon-scala-commons-0.0.1</tag>
     </scm>
 
     <distributionManagement>
