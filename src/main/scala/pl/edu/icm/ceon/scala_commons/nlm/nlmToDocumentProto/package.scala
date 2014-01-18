@@ -97,6 +97,13 @@ package object nlmToDocumentProto {
     }
     meta.setBasicMetadata(basicMeta)
 
+    val keywordsList = KeywordsList.newBuilder()
+    for (kwdNode <- eval.asNodes( """/article/front/article-meta/kwd-group/kwd""")) {
+      val kwd = kwdNode.getTextContent
+      keywordsList.addKeywords(kwd)
+    }
+    meta.addKeywords(keywordsList)
+
     meta.setKey(eval( """/article/front/article-meta/article-id[@pub-id-type='pmid']"""))
 
     for ((refNode, idx) <- eval.asNodes( """/article/back/ref-list/ref""").zipWithIndex) {

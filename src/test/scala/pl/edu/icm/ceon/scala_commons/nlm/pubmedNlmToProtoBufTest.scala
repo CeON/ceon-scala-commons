@@ -8,6 +8,7 @@ import org.junit.Assert._
 import pl.edu.icm.coansys.models.DocumentProtos.DocumentMetadata
 import nlmToDocumentProto.pubmedNlmToProtoBuf
 import org.junit.{Test, BeforeClass}
+import scala.collection.JavaConverters._
 
 /**
  * @author Mateusz Fedoryszak (m.fedoryszak@icm.edu.pl)
@@ -90,6 +91,11 @@ class pubmedNlmToProtoBufTest {
     assertEquals(doc.getBasicMetadata.getAuthorCount, 7)
     assertEquals(doc.getBasicMetadata.getAuthor(0).getSurname, "Ganapathy")
     assertEquals(doc.getBasicMetadata.getAuthor(0).getForenames, "Vadivel")
+  }
+
+  @Test
+  def keywordsTest() {
+    assertEquals(doc.getKeywords(0).getKeywordsList.asScala, List("gamma-hydroxybutyrate", "kidney/intestine", "monocarboxylate drugs", "SLC5A8/SLC5A12", "tumor suppressor"))
   }
 
   @Test
