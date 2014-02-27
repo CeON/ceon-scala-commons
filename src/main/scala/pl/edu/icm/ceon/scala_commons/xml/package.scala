@@ -23,7 +23,7 @@ package object xml {
    * Converts XML string to Elem list.
    */
   def xmlToElems(xml: String): List[Elem] = {
-    def tagContentToElem(s: String) =
+    def tagContentToElem(s: String): Elem =
       if (s.charAt(0) != '/') StartTag(s) else EndTag(s.substring(1))
 
     val groupBoundaries = tagRegex.findAllIn(xml).matchData map {
@@ -32,7 +32,7 @@ package object xml {
     val (part, end) = groupBoundaries.foldLeft((Nil: List[Elem], 0)) {
       case ((tail, begin), (b, e)) =>
         val content = xml.substring(b + 1, e - 1)
-        val list =
+        val list: List[Elem] =
           if (begin < b)
             tagContentToElem(content) :: Text(xml.substring(begin, b)) :: tail
           else

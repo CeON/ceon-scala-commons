@@ -96,4 +96,32 @@ package object collections {
     }
     reversed.filterNot(_.isEmpty).map(_.reverse).reverse
   }
+
+
+  /**
+   * Returns all 2-element subsets.
+   */
+  def unorderedPairs[A](list: List[A]): Iterator[(A,A)] = {
+    for {
+      h1::t1 <- list.tails
+      h2::t2 <- t1.tails
+    } yield (h1, h2)
+  }
+
+  /**
+   * Removes the first element statisfying the predicate.
+   */
+  def excludeOne[A](list: List[A], pred: A => Boolean): List[A] = {
+    @tailrec
+    def helper(list: List[A], pred: A => Boolean, acc: List[A]): List[A] = list match {
+      case Nil => acc.reverse
+      case h::t =>
+        if (pred(h))
+          acc.reverse ++ t
+        else
+          helper(t, pred, h::acc)
+    }
+
+    helper(list, pred, Nil)
+  }
 }

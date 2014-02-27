@@ -60,4 +60,24 @@ class packageTest {
     assertEquals(List(List(1), List(1, 1)), split(List(1, 0, 0, 1, 1, 0))(_ == 0))
     assertEquals(List(List(1), List(1, 1)), split(List(0, 1, 0, 0, 1, 1))(_ == 0))
   }
+
+  @Test
+  def unorderedPairsTest() {
+    def sortPair(pair: (Int, Int)): (Int, Int) =
+      (pair._1 min pair._2, pair._1 max pair._2)
+
+    assertEquals(Set(), unorderedPairs(Nil).map(sortPair).toSet)
+    assertEquals(Set(), unorderedPairs(List(1)).map(sortPair).toSet)
+    assertEquals(Set((0,1), (0,2), (0,3), (1,2), (1,3), (2,3)), unorderedPairs(List(0,1,2,3)).map(sortPair).toSet)
+  }
+
+  @Test
+  def excludeOneTest() {
+    assertEquals(Nil, excludeOne[Int](Nil, _ => false))
+    assertEquals(Nil, excludeOne[Int](Nil, _ => true))
+    assertEquals(List(1,2,3), excludeOne[Int](List(1,2,3), _ => false))
+    assertEquals(List(2,3), excludeOne[Int](List(1,2,3), _ => true))
+    assertEquals(List(1,3), excludeOne[Int](List(1,2,3), _ == 2))
+    assertEquals(List(1,3,2), excludeOne[Int](List(1,2,3,2), _ == 2))
+  }
 }
