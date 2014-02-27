@@ -62,13 +62,13 @@ class packageTest {
   }
 
   @Test
-  def unorderedPairsTest() {
-    def sortPair(pair: (Int, Int)): (Int, Int) =
-      (pair._1 min pair._2, pair._1 max pair._2)
+  def sortedPairsTest() {
 
-    assertEquals(Set(), unorderedPairs(Nil).map(sortPair).toSet)
-    assertEquals(Set(), unorderedPairs(List(1)).map(sortPair).toSet)
-    assertEquals(Set((0,1), (0,2), (0,3), (1,2), (1,3), (2,3)), unorderedPairs(List(0,1,2,3)).map(sortPair).toSet)
+
+    assertEquals(Set(), sortedPairs[Int](Nil).toSet)
+    assertEquals(Set(), sortedPairs(List(1)).toSet)
+    assertEquals(Set((0,1), (0,2), (0,3), (1,2), (1,3), (2,3)), sortedPairs(List(0,1,2,3)).toSet)
+    assertEquals(Set((0,1), (0,2), (0,3), (1,2), (1,3), (2,3)), sortedPairs(List(3,2,1,0)).toSet)
   }
 
   @Test

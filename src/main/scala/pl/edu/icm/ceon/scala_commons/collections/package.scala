@@ -108,6 +108,16 @@ package object collections {
     } yield (h1, h2)
   }
 
+  def sortedPairs[A: Ordering](list: List[A]): Iterator[(A,A)] = {
+    def sortPair(pair: (A, A)): (A, A) =
+      if (implicitly[Ordering[A]].lt(pair._1, pair._2))
+        pair
+      else
+        pair.swap
+
+    unorderedPairs(list).map(sortPair)
+  }
+
   /**
    * Removes the first element statisfying the predicate.
    */
