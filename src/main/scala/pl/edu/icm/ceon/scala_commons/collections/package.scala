@@ -101,12 +101,11 @@ package object collections {
   /**
    * Returns all 2-element subsets.
    */
-  def unorderedPairs[A](list: List[A]): Iterator[(A,A)] = {
-    for {
-      h1::t1 <- list.tails
-      h2::t2 <- t1.tails
-    } yield (h1, h2)
-  }
+  def unorderedPairs[A](list: List[A]): Iterator[(A,A)] = for {
+    h1::t1 <- list.tails
+    h2::t2 <- t1.tails
+  } yield (h1, h2)
+
 
   def sortedPairs[A: Ordering](list: List[A]): Iterator[(A,A)] = {
     def sortPair(pair: (A, A)): (A, A) =
@@ -117,6 +116,13 @@ package object collections {
 
     unorderedPairs(list).map(sortPair)
   }
+
+  def sortedTriples[A: Ordering](list: List[A]): Iterator[(A,A,A)] = for {
+    h1::t1 <- list.sorted.tails
+    h2::t2 <- t1.tails
+    h3::t3 <- t2.tails
+  } yield (h1, h2, h3)
+
 
   /**
    * Removes the first element statisfying the predicate.
