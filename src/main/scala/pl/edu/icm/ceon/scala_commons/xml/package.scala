@@ -4,6 +4,8 @@
 
 package pl.edu.icm.ceon.scala_commons
 
+import org.w3c.dom.Node
+
 /**
  * @author Mateusz Fedoryszak (m.fedoryszak@icm.edu.pl)
  */
@@ -55,4 +57,13 @@ package object xml {
     val removedTags = elems filterNot (tagRegex.pattern.matcher(_).matches)
     removedTags.mkString(joiner)
   }
+
+  def tagset(n: Node): Set[String] =
+    if (n.getNodeType != Node.ELEMENT_NODE) {
+      Set()
+    } else {
+      val children = n.getChildNodes
+      val childTags = (0 until children.getLength).map(children.item).map(tagset).fold(Set())(_ ++ _)
+      childTags + n.getNodeName
+    }
 }
