@@ -4,11 +4,13 @@
 
 package pl.edu.icm.ceon.scala_commons.xml
 
-import javax.xml.xpath.{XPathConstants, XPathFactory}
-import org.w3c.dom.{NodeList, Node}
-import java.io.{StringReader, InputStream}
+import java.io.{InputStream, StringReader}
 import javax.xml.parsers.DocumentBuilderFactory
-import org.xml.sax.{InputSource, EntityResolver}
+import javax.xml.xpath.{XPathConstants, XPathFactory}
+
+import org.apache.commons.io.IOUtils
+import org.w3c.dom.{Node, NodeList}
+import org.xml.sax.{EntityResolver, InputSource}
 
 /**
  * @author Mateusz Fedoryszak (m.fedoryszak@icm.edu.pl)
@@ -28,9 +30,15 @@ class XPathEvaluator(private val obj: Any) extends (String => String) {
     for (i <- 0 until nodes.getLength)
     yield nodes.item(i)
   }
+
+  def asStrings(xpath: String) =
+    asNodes(xpath)
+      .map(_.getTextContent)
+
 }
 
 object XPathEvaluator {
+
   def fromInputStream(is: InputStream) = {
     val docBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder()
     docBuilder.setEntityResolver(new EntityResolver {
@@ -39,4 +47,7 @@ object XPathEvaluator {
     val doc = docBuilder.parse(is)
     new XPathEvaluator(doc)
   }
+
+  def fromString(s: String) = fromInputStream(IOUtils.toInputStream(s))
+
 }
