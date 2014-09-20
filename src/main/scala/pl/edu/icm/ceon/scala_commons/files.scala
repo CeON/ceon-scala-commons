@@ -4,9 +4,10 @@
 
 package pl.edu.icm.ceon.scala_commons
 
-import java.io.{PrintWriter, File}
+import java.io.{File, PrintWriter}
+
 import resource._
-import scala.Some
+
 import scala.io.{Codec, Source}
 
 /**
@@ -33,7 +34,8 @@ object files {
       .acquireAndGet(source => source.getLines().toList)
 
     def asLines_=(ls: TraversableOnce[String]) {
-      asText = ls.mkString("\n")
+      managed(new PrintWriter(file, "UTF-8"))
+        .acquireAndGet(out => ls.foreach(line => out.println(line)))
     }
 
     def asText = asLines.mkString
