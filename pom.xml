@@ -4,7 +4,7 @@
     <groupId>pl.edu.icm.ceon</groupId>
     <artifactId>ceon-scala-commons</artifactId>
     <name>CeON Scala Commons</name>
-    <version>0.0.2</version>
+    <version>0.0.3-SNAPSHOT</version>
     <inceptionYear>2013</inceptionYear>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -129,7 +129,7 @@
         <connection>scm:git:ssh://git@github.com/CeON/ceon-scala-commons.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/CeON/ceon-scala-commons.git</developerConnection>
         <url>https://github.com/CeON/ceon-scala-commons</url>
-        <tag>ceon-scala-commons-0.0.2</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
