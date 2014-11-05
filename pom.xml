@@ -135,12 +135,12 @@
 
     <distributionManagement>
         <snapshotRepository>
-            <id>maven.ceon.pl</id>
+            <id>ceon-commons-snapshots</id>
             <name>maven.ceon.pl-snapshots</name>
             <url>http://maven.icm.edu.pl/artifactory/ceon-commons-snapshots</url>
         </snapshotRepository>
         <repository>
-            <id>maven.ceon.pl</id>
+            <id>ceon-commons-releases</id>
             <name>maven.ceon.pl-releases</name>
             <url>http://maven.icm.edu.pl/artifactory/ceon-commons-releases</url>
         </repository>
